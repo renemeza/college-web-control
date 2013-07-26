@@ -1,10 +1,17 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
+	"name": "botdemon/college-web-control",
+	"description": "",
 	"keywords": ["framework", "laravel"],
 	"require": {
-		"laravel/framework": "4.1.*"
+		"laravel/framework": "4.1.*",
+                "way/generators": "dev-master",
+                "conarwelsh/mustache-l4": "dev-master",
+                "jlong/sass-twitter-bootstrap": "dev-master"
 	},
+        "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "mockery/mockery": "0.7.*"
+        },
 	"autoload": {
 		"classmap": [
 			"app/commands",
