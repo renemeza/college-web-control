@@ -5,7 +5,7 @@ class TeachersTableSeeder extends Seeder {
     public function run()
     {
     	// Uncomment the below to wipe the table clean before populating
-    	// DB::table('teachers')->delete();
+    	DB::table('teachers')->delete();
 
         $teachers = array(
             array(

@@ -20,8 +20,8 @@ class TeachersController extends BaseController {
             array(
                 'error' => false,
                 'data' => $teachers->toArray()
-            )
-        );
+            ),
+            200);
     }
 
     /**
@@ -52,10 +52,13 @@ class TeachersController extends BaseController {
      */
     public function show($id)
     {
-        $teacher = Teacher::where('id', $id)->get()->toArray();
-        array_splice($teacher[0], 2, 1);
-        $view = View::make('teachers.show', compact('teacher'));
-        return Response::make($view, 200)->header('Content-Type', 'application/json');
+        $teacher = Teacher::where('id', $id)->get();
+
+        return Response::json(
+            array(
+                'error' => false,
+                'data' => $teacher->toArray()
+            ), 200);
     }
 
     /**

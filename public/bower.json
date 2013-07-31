@@ -8,7 +8,8 @@
     "mustache": "~0.7.2",
     "backbone": "https://github.com/jashkenas/backbone.git#~1.0.0",
     "requirejs": "https://github.com/jrburke/requirejs.git#~2.1.8",
-    "requirejs-domready": "https://github.com/requirejs/domReady.git#~2.0.1"
+    "requirejs-domready": "https://github.com/requirejs/domReady.git#~2.0.1",
+    "sass-bootstrap": "~2.3.2"
   },
   "devDependencies": {
 

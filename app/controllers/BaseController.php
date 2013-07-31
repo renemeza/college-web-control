@@ -14,5 +14,15 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
+	protected static function requestApi($uri, $method = 'GET', $key = 'data')
+	{
+		$request = Request::create($uri, $method);
+		$response = Route::dispatch($request)->getContent();
+		$data = json_decode($response, true);
+		if(!is_null($data) && array_key_exists($key, $data)) {
+			$data = $data[$key];
+		}
 
+		return $data;
+	}
 }

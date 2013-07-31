@@ -28,7 +28,7 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('www.botdemon.stage','*.local', 'local.*')
+	'local' => array('web.botdemon.local','*.local', 'local.*')
 
 ));
 
