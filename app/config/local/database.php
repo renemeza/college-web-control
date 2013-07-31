@@ -54,7 +54,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '192.168.33.11',
 			'database'  => 'college_db',
 			'username'  => 'college_admin',
 			'password'  => 'admin1',

@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'botdemon.college.local',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => 'vDYnMdrMjjxVtF7YHfp8wd3wXFB9GZB4',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -114,6 +114,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Way\Generators\GeneratorsServiceProvider',
+		'Conarwelsh\MustacheL4\MustacheL4ServiceProvider'
 
 	),
 
