@@ -7,3 +7,7 @@ A web application to control basic operations of a College, like teachers, stude
 * Provide a control panel to manage college's tasks
 * This web app demonstrate the use of varius web development techinques
 
+# Authors
+* Rene Meza
+* Joaquin Rivera
+
