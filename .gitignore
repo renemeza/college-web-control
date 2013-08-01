@@ -2,4 +2,10 @@
 /vendor
 composer.phar
 composer.lock
+<<<<<<< HEAD
 .DS_Store
+=======
+.DS_Store
+Vagrantfile
+.vagrant/*
+>>>>>>> upstream/master
