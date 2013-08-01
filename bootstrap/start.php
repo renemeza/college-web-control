@@ -28,7 +28,8 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('web.botdemon.local','*.local', 'local.*')
+	'local' => array('web.botdemon.local','*.local', 'local.*'),
+    'production' => array('college.appfog.wgh.com', '*.com' )
 
 ));
 
