@@ -27,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">College Control</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -39,8 +39,14 @@
       </div>
     </div>
 
-    <div class="container" data-role="main">
-        {{ $content }}
+    <div class="container-fluid" data-role="main">
+      <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span10">
+           {{ $content }}
+        </div>
+      </div>
+
     </div> <!-- /container -->
 
     <!-- Le javascript

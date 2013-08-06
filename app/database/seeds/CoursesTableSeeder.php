@@ -2,32 +2,36 @@
 
 class CoursesTableSeeder extends Seeder {
 
-    public function run()
-    {
-    	// Uncomment the below to wipe the table clean before populating
-    	DB::table('courses')->delete();
+	public function run()
+	{
+		// Uncomment the below to wipe the table clean before populating
+		DB::table('courses')->delete();
 
-        $courses = array(
+		$courses = array(
             array(
-                'code' => 'm101',
-                'name' => 'Mathematics',
-                'num_credits' => 6,
-                'cancellation_date' => null,
-                'description' => 'Mathematics 101, the base for the mathematics',
-                'created_at' => (new DateTime())->format('Y-m-d H:i:s')
+                'id' => '1CC',
+                'num_course' => 1,
+                'career_id' => 'CC'
             ),
             array(
-                'code' => 'f101',
-                'name' => 'Physics',
-                'num_credits' => 5,
-                'cancellation_date' => null,
-                'description' => 'physics 101, the base for the physics',
-                'created_at' => (new DateTime())->format('Y-m-d H:i:s')
+                'id' => '2CC',
+                'num_course' => 2,
+                'career_id' => 'CC'
             ),
-        );
+            array(
+                'id' => '1BB',
+                'num_course' => 1,
+                'career_id' => 'BB'
+            ),
+            array(
+                'id' => '1BT',
+                'num_course' => 1,
+                'career_id' => 'BT'
+            )
+		);
 
-        // Uncomment the below to run the seeder
-        DB::table('courses')->insert($courses);
-    }
+		// Uncomment the below to run the seeder
+		DB::table('courses')->insert($courses);
+	}
 
 }

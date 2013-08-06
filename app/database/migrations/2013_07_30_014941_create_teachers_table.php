@@ -13,15 +13,21 @@ class CreateTeachersTable extends Migration {
     public function up()
     {
         Schema::create('teachers', function(Blueprint $table) {
-            $table->increments('id');
+            $table->string('id', 40);
             $table->string('first_name', 80);
 			$table->string('last_name', 80);
-			$table->string('address', 250);
+			$table->string('address', 250)->nullable();
 			$table->date('birth_date');
-			$table->date('hire_date');
-			$table->date('dismissal_date');
-			$table->binary('photo');
+			$table->date('hire_date')->nullable()->default((new DateTime())->format('Y-m-d'));
+			$table->date('dismissal_date')->nullable();
+			$table->binary('photo')->nullable();
+            $table->string('type', 20)->nullable()->default('PERMANENT');
+            $table->boolean('is_activated')->default(true);
             $table->timestamps();
+
+            $table->primary('id');
+            $table->index('first_name');
+            $table->index('last_name');
         });
     }
 

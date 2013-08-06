@@ -30,3 +30,29 @@ Route::resource('teachers', 'AppTeachersController');
 //     $res = HttpfulReq::get($uri)->send();
 //     return "bien";
 // });
+
+Route::resource('careers', 'CareersController');
+
+Route::resource('courses', 'CoursesController');
+
+Route::resource('turns', 'TurnsController');
+
+Route::resource('class_rooms', 'Class_roomsController');
+
+Route::resource('course_sections', 'Course_sectionsController');
+
+Route::resource('subjects', 'SubjectsController');
+
+Route::resource('time_periods', 'Time_periodsController');
+
+Route::resource('students', 'StudentsController');
+
+Route::resource('schedules', 'SchedulesController');
+
+Route::resource('schedule_details', 'Schedule_detailsController');
+
+Route::resource('student_grades', 'Student_gradesController');
+
+Route::resource('grades_details', 'Grades_detailsController');
+
+Route::resource('student_records', 'Student_recordsController');

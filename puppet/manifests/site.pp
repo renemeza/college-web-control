@@ -10,13 +10,22 @@ node 'web.botdemon.local' {
         provider => 'gem',
     }
 
-    package { "rb-inotify":
-        ensure => installed,
-        provider => 'gem',
-    }
+    # package { "rb-inotify":
+    #     ensure => installed,
+    #     provider => 'gem',
+    # }
 
     exec { "update-bower":
         command => "npm update -g bower",
         path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
     }
+
+    exec { "update-npm":
+        command => "npm update -g npm",
+        path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
+    }
+}
+
+node 'db.botdemon' {
+
 }
