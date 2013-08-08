@@ -20,8 +20,12 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php"
-		]
+			"app/tests/TestCase.php",
+			"app/repositories"
+		],
+		"psr-0": {
+			"BotDemon\\": "app/lib/"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [

@@ -1,5 +1,19 @@
 <?php
 
+App::bind('ClassRoomRepositoryInterface', 'ClassRoomRepository');
+App::bind('CareerRepositoryInterface', 'CareerRepository');
+App::bind('CourseRepositoryInterface', 'CourseRepository');
+App::bind('CourseSectionRepositoryInterface', 'CourseSectionRepository');
+App::bind('ScheduleRepositoryInterface', 'ScheduleRepository');
+App::bind('StudentGradeRepositoryInterface', 'StudentGradeRepository');
+App::bind('StudentRecordRepositoryInterface', 'StudentRecordRepository');
+App::bind('StudentRepositoryInterface', 'StudentRepository');
+App::bind('SubjectRepositoryInterface', 'SubjectRepository');
+App::bind('TeacherRepositoryInterface', 'TeacherRepository');
+App::bind('TimePeriodRepositoryInterface', 'TimePeriodRepository');
+App::bind('TurnRepositoryInterface', 'TurnRepository');
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,19 +24,84 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-use Httpful\Request as HttpfulReq;
-use Httpful\Response as HttpfulRes;
 
+/*
+ * ------------------------------------------------------------------------
+ * Home Route
+ * ------------------------------------------------------------------------
+ */
 Route::get('/', function()
 {
 	return View::make('hello');
 });
 
-Route::group(array('prefix' => 'api/v1'), function() {
-    Route::resource('teachers', 'V1\TeachersController');
-    Route::resource('courses', 'V1\CoursesController');
+/*
+ * -------------------------------------------------------------------------
+ * Web Services APIs
+ * -------------------------------------------------------------------------
+ */
+Route::group(array('prefix' => 'api'), function() {
+    Route::resource('teachers', 'API\V1\TeachersController');
+    Route::group(array('prefix' => 'teachers'), function() {
+    });
+
+    Route::resource('careers', 'API\V1\CareersController');
+    Route::group(array('prefix' => 'careers'), function() {
+        Route::get('{id}/query/courses/{course_id?}', 'API\V1\CareersController@showCourses');
+        Route::get('{id}/{child}/{student_id?}', 'API\V1\CareersController@showChild');
+    });
+
+    Route::resource('courses', 'API\V1\CoursesController');
+    Route::group(array('prefix' => 'courses'), function() {
+    });
+
+    Route::resource('turns', 'API\V1\TurnsController');
+    Route::group(array('prefix' => 'turn'), function() {
+    });
+
+    Route::resource('classrooms', 'API\V1\ClassRoomsController');
+    Route::group(array('prefix' => 'classrooms'), function() {
+        Route::get('{id}/query/sections/{section_id?}', 'API\V1\ClassRoomsController@showSections');
+        Route::get('{id}/query/schedules', 'API\V1\ClassRoomsController@showSchedules');
+    });
+
+    Route::resource('coursesections', 'API\V1\CourseSectionsController');
+    Route::group(array('prefix' => 'coursesections'), function() {
+    });
+
+    Route::resource('subjects', 'API\V1\SubjectsController');
+    Route::group(array('prefix' => 'subjects'), function() {
+    });
+
+    Route::resource('timeperiods', 'API\V1\TimePeriodsController');
+    Route::group(array('prefix' => 'timeperiods'), function() {
+    });
+
+    Route::resource('students', 'API\V1\StudentsController');
+    Route::group(array('prefix' => 'students'), function() {
+    });
+
+    Route::resource('schedules', 'API\V1\SchedulesController');
+    Route::group(array('prefix' => 'schedules'), function() {
+    });
+
+    Route::resource('studentgrades', 'API\V1\StudentGradesController');
+    Route::group(array('prefix' => 'studentgrades'), function() {
+    });
+
+    Route::resource('studentrecords', 'API\V1\StudentRecordsController');
+    Route::group(array('prefix' => 'studentrecords'), function() {
+    });
+
+    // Route::resource('schedule_details', 'API\V1\ScheduleDetailsController');
+    // Route::resource('grades_details', 'API\V1\GradeDetailsController');
 });
 
+/*
+ * -------------------------------------------------------------------------------------
+ * Application Routes
+ * -------------------------------------------------------------------------------------
+ */
 Route::resource('teachers', 'AppTeachersController');
 
 // Route::get('api', function(){
@@ -31,28 +110,3 @@ Route::resource('teachers', 'AppTeachersController');
 //     return "bien";
 // });
 
-Route::resource('careers', 'CareersController');
-
-Route::resource('courses', 'CoursesController');
-
-Route::resource('turns', 'TurnsController');
-
-Route::resource('class_rooms', 'Class_roomsController');
-
-Route::resource('course_sections', 'Course_sectionsController');
-
-Route::resource('subjects', 'SubjectsController');
-
-Route::resource('time_periods', 'Time_periodsController');
-
-Route::resource('students', 'StudentsController');
-
-Route::resource('schedules', 'SchedulesController');
-
-Route::resource('schedule_details', 'Schedule_detailsController');
-
-Route::resource('student_grades', 'Student_gradesController');
-
-Route::resource('grades_details', 'Grades_detailsController');
-
-Route::resource('student_records', 'Student_recordsController');

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('StudentGradesTableSeeder');
 		$this->call('GradeDetailsTableSeeder');
 		$this->call('StudentRecordsTableSeeder');
+		$this->call('Course_subjectsTableSeeder');
 	}
 
 }

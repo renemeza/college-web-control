@@ -78,3 +78,21 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| API Version Filter
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::filter('api.type', function($route, $request, $value)
+{
+    $type = $value;
+    $content_type = Request::header('Content-Type');
+    if($content_type == Config::get("${type}_media_type"))
+    {
+        return true;
+    }
+    return false;
+});

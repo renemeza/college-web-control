@@ -1,12 +1,12 @@
 <?php
 
-class Turn extends Eloquent {
+class ClassRoom extends Eloquent {
 	protected $guarded = array();
 
 	public static $rules = array();
 
     public function sections()
     {
-        return $this->hasMany('CourseSection', 'turn_id');
+        return $this->hasMany('CourseSection', 'classroom_id');
     }
 }
