@@ -1,0 +1,31 @@
+<form class="login form-horizontal" action="/login" method="POST">
+    {{# errors }}
+    <div class="alert alert-error">
+        <strong>Error:</strong>{{message}}
+    </div>
+    {{/ errors }}
+
+    <div class="control-group">
+        <label for="username" class="control-label">Nombre de Usuario:</label>
+        <div class="controls">
+            <input type="text" id="username" name="username" placeholder="Usuario o Email" required>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="password" class="control-label">Contraseña</label>
+        <div class="controls">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <label for="" class="checkbox">
+                <input type="checkbox">Recordarme</input>
+            </label>
+            <button class="btn btn-primary btn-block" type="submit">Acceder</button>
+
+        </div>
+
+    </div>
+
+</form>

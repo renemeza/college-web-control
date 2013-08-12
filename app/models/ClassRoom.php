@@ -3,7 +3,11 @@
 class ClassRoom extends Eloquent {
 	protected $guarded = array();
 
-	public static $rules = array();
+	public static $rules = array(
+        'id' => 'required',
+        'floor' => 'numeric',
+        'building' => 'numeric'
+    );
 
     public function sections()
     {

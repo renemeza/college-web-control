@@ -5825,3 +5825,10 @@ body {
   .nav-collapse.collapse {
     height: auto !important;
     overflow: visible !important; } }
+.userinfo {
+  color: white; }
+
+.form-inline {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0; }

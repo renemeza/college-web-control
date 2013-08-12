@@ -10,7 +10,7 @@ class CourseSectionsController extends BaseController {
 
 	public function __construct(CourseSectionRepositoryInterface $sections)
 	{
-
+		$this->sections = $sections;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +19,7 @@ class CourseSectionsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->sections->findAll();
 	}
 
 	/**

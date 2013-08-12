@@ -11,12 +11,14 @@
 |
 */
 
+
 ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
+    app_path().'/lib'
 
 ));
 
@@ -53,6 +55,52 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $e, $code) {
+    $headers = $e->getHeaders();
+
+    switch ($code) {
+        case 401:
+            $default_message = 'Invalid API Key';
+            $headers['WWW-Authenticate'] = 'Basic realm="CRM REST API"';
+            break;
+        case 403:
+            $default_message = 'Insufficient privileges to perform this action';
+            break;
+        case 404:
+            $default_message = 'The requested resource was not found';
+            break;
+        default:
+            $default_message = 'An error was encountered';
+            break;
+    }
+
+    return Response::json(array(
+        'error' => true,
+        'error_code' => $code,
+        'message' => $e->getMessage() ?: $default_message
+    ), $code, $headers);
+});
+
+App::error(function(BotDemon\PermissionException $e, $code) {
+    return Response::json(array(
+        'error' => true,
+        'message' => $e->getMessage()),
+    $e->getCode());
+});
+
+App::error(function(BotDemon\ValidationException $e, $code) {
+    return Response::json(array(
+        'error' => true,
+        'message' => $e->getMessages()),
+    $code);
+});
+
+App::error(function(BotDemon\NotFoundException $e, $code) {
+    return Response::json(array(
+        'error' => true,
+        'message' => $e->getMessage()),
+    $code);
+});
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

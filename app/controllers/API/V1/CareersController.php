@@ -4,7 +4,9 @@ namespace API\V1;
 use BaseController;
 use View;
 use CareerRepositoryInterface;
-
+use NotFoundException;
+use Response;
+use Input;
 class CareersController extends BaseController {
 
 	protected $careers = null;
@@ -20,7 +22,6 @@ class CareersController extends BaseController {
 	 */
 	public function index()
 	{
-		// return Career::all();
 		return $this->careers->findAll();
 	}
 
@@ -32,6 +33,7 @@ class CareersController extends BaseController {
 	public function create()
 	{
 		$career = $this->careers->instance();
+		return View::make('careers._form', compact('career'));
 	}
 
 	/**
@@ -41,7 +43,7 @@ class CareersController extends BaseController {
 	 */
 	public function store()
 	{
-		return $this->careers->strore(Input::all());
+		return $this->careers->store(Input::all());
 	}
 
 	/**
@@ -53,7 +55,11 @@ class CareersController extends BaseController {
 	public function show($id)
 	{
 		$career = $this->careers->findById($id);
-		return $career;
+		return Response::json(
+            array(
+                'error' => false,
+                'data' => $career->toArray()
+            ), 200);
 	}
 
 	public function showCourses($id, $course_id = null)
@@ -87,6 +93,7 @@ class CareersController extends BaseController {
 	public function edit($id)
 	{
 		$career = $this->careers->findById($id);
+		return View::make('careers._form', array('career' => $career, 'exists' => true));
 	}
 
 	/**
@@ -109,6 +116,7 @@ class CareersController extends BaseController {
 	public function destroy($id)
 	{
 		$this->careers->destroy($id);
+		return Response::make(array('error' => false), 203);
 	}
 
 }

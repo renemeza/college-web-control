@@ -10,7 +10,7 @@ class SchedulesController extends BaseController {
 
 	public function __construct(ScheduleRepositoryInterface $schedules)
 	{
-
+		$this->schedules = $schedules;
 	}
 
 	/**
@@ -20,7 +20,7 @@ class SchedulesController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->schedules->findAll();
 	}
 
 	/**

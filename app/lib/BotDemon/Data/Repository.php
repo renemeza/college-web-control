@@ -1,7 +1,8 @@
 <?php
 
 namespace BotDemon\Data;
-use NotFoundException;
+use Validator;
+use BotDemon;
 
 class Repository implements RepositoryInterface
 {
@@ -34,7 +35,7 @@ class Repository implements RepositoryInterface
         }
         $records = $model::where('id', $id_data['id'])->first();
 
-        if(!$records) throw new NotFoundException("Registro no encontrada", 1);
+        if(!$records) throw new NotFoundException("Registro no encontrada");
 
         return $records;
     }
@@ -84,7 +85,7 @@ class Repository implements RepositoryInterface
     public function validate(array $data)
     {
         $model = $this->validateModel();
-        $validator = Validator::make($data, $model::getRules());
+        $validator = Validator::make($data, $model::$rules);
         if($validator->fails()) throw new ValidationException($validator);
         return true;
     }
@@ -92,7 +93,7 @@ class Repository implements RepositoryInterface
     public function instance(array $data = array())
     {
         $model = $this->validateModel();
-        return $model::create($data);
+        return new $model($data);
     }
 }
 

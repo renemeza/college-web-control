@@ -1,0 +1,40 @@
+
+{{#exists}}
+<form class="form-horizontal" action="/admin/teachers/{{ teacher.id }}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+{{/exists }}
+{{^exists}}
+<form class="form-horizontal" action="/admin/teachers" method="POST">
+{{/exists}}
+   <div class="control-group">
+       <label for="id" class="control-label">Codigo*:</label>
+       <div class="controls">
+            <input type="text" id="id" name="id" value="{{ teacher.id }}" required {{#exists}}readonly{{/exists}}>
+        </div>
+   </div>
+   <div class="control-group">
+       <label for="first_name" class="control-label">Nombre*:</label>
+       <div class="controls"><input type="text" id="first_name" name="first_name" value="{{ teacher.first_name }}" required></div>
+   </div>
+   <div class="control-group">
+       <label for="last_name" class="control-label">Apellido*:</label>
+       <div class="controls"><input type="text" id="last_name" name="last_name" value="{{ teacher.last_name }}" required></div>
+   </div>
+   <div class="control-group">
+       <label for="address" class="control-label">Direccion</label>
+       <div class="controls"><input type="text" id="address" name="address" value="{{ teacher.address }}"></div>
+   </div>
+   <div class="control-group">
+       <label for="birth_date" class="control-label">Fecha de Nacimiento</label>
+       <div class="controls"><input type="text" is="birth_date" name="birth_date" value="{{ teacher.birth_date }}"></div>
+   </div>
+   <div class="control-group">
+       <label for="hire_date" class="control-label">Fecha de Contratacion</label>
+       <div class="controls"><input type="text" id="hire_date" name="hire_date" value="{{ teacher.hire_date }}"></div>
+   </div>
+
+   <div class="control-group">
+       <div class="controls"><button href="/admin/teachers/{{ teacher.id }}" type="submit">Guardar</button></div>
+   </div>
+
+</form>

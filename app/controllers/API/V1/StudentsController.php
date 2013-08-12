@@ -5,12 +5,13 @@ use BaseController;
 use View;
 use Response;
 use StudentRepositoryInterface;
+use Input;
 
 class StudentsController extends BaseController {
 
 	public function __construct(StudentRepositoryInterface $students)
 	{
-
+		$this->students = $students;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +20,7 @@ class StudentsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->students->findAll();
 	}
 
 	/**
@@ -29,7 +30,8 @@ class StudentsController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		$student = $this->students->instance();
+        return View::make('students._form', compact('student'));
 	}
 
 	/**
@@ -39,7 +41,8 @@ class StudentsController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+        return $this->students->store(Input::all());
+
 	}
 
 	/**
@@ -50,7 +53,13 @@ class StudentsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$student = $this->students->findById($id);
+
+        return Response::json(
+            array(
+                'error' => false,
+                'data' => $student->toArray()
+            ), 200);
 	}
 
 	/**
@@ -61,7 +70,9 @@ class StudentsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$student = $this->students->findById($id);
+        return View::make('students._form', array('student' => $student, 'exists' => true));
+
 	}
 
 	/**
@@ -72,7 +83,8 @@ class StudentsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        return $this->students->update($id, Input::all());
+
 	}
 
 	/**
@@ -83,7 +95,10 @@ class StudentsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->students->destroy($id);
+        return Response::json(array(
+            'error' => false
+        ), 203);
 	}
 
 }

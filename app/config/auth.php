@@ -43,6 +43,8 @@ return array(
 
 	'table' => 'users',
 
+	'uername' => 'username',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Password Reminder Settings

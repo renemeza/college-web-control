@@ -10,7 +10,7 @@ class StudentRecordsController extends BaseController {
 
 	public function __construct(StudentRecordRepositoryInterface $records)
 	{
-
+		$this->records = $records;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +19,7 @@ class StudentRecordsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->records->findAll();
 	}
 
 	/**

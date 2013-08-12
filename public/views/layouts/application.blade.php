@@ -19,40 +19,47 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">College Control</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+    <header>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="brand" href="/">College Control</a>
+              <div class="nav-collapse collapse">
+                <ul class="nav">
+                  <li class="active"><a href="/">Inicio</a></li>
+                  <li><a href="#about">Acerca</a></li>
+                  <li><a href="#contact">Contacto</a></li>
+                </ul>
+              </div><!--/.nav-collapse -->
+               @if( Auth::check() )
+              <div class="userinfo pull-right">
+                Bienvenido, <strong>{{ Auth::user()->username }}</strong>! <br>
+                {{ HTML::link('logout', 'Salir')}}
+              </div>
+              @endif
+            </div>
+          </div>
+
+        </nav>
+      </header>
 
     <div class="container-fluid" data-role="main">
-      <div class="row-fluid">
-        <div class="span2"></div>
-        <div class="span10">
-           {{ $content }}
-        </div>
-      </div>
-
+       <!-- @yield('content') -->
+       @yield('content')
     </div> <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/require.js') }}"></script>
+
     @yield('scripts')
   </body>
 </html>

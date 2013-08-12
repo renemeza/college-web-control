@@ -10,7 +10,7 @@ class TurnsController extends BaseController {
 
 	public function __construct(TurnRepositoryInterface $turns)
     {
-
+    	$this->turns = $turns;
     }
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +19,7 @@ class TurnsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->turns->findAll();
 	}
 
 	/**

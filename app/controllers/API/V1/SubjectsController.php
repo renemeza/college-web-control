@@ -10,7 +10,7 @@ class SubjectsController extends BaseController {
 
 	public function __construct(SubjectRepositoryInterface $subjects)
 	{
-
+		$this->subjects = $subjects;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +19,7 @@ class SubjectsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->subjects->findAll();
 	}
 
 	/**

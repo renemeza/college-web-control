@@ -10,7 +10,7 @@ class StudentGradesController extends BaseController {
 
 	public function __construct(StudentGradeRepositoryInterface $grades)
 	{
-
+		$this->grades = $grades;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +19,7 @@ class StudentGradesController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->grades->findAll();
 	}
 
 	/**

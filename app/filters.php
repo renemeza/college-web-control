@@ -89,10 +89,14 @@ Route::filter('csrf', function()
 Route::filter('api.type', function($route, $request, $value)
 {
     $type = $value;
-    $content_type = Request::header('Content-Type');
-    if($content_type == Config::get("${type}_media_type"))
+    $content_type = Request::header('Accept');
+
+
+    $media_type = Config::get("api.{$value}_media_type");
+
+    if($content_type == $media_type)
     {
-        return true;
+        return "";
     }
-    return false;
+    return gettype($v);
 });

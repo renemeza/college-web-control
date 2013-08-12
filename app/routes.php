@@ -30,9 +30,17 @@ App::bind('TurnRepositoryInterface', 'TurnRepository');
  * Home Route
  * ------------------------------------------------------------------------
  */
+use Httpful\Request as HttReq;
+
+Route::get('req', function() {
+    $uri = '192.168.33.10/api/teachers';
+    $req = HttReq::get($uri)->send();
+    return $req;
+});
+
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('layouts.landing')->nest('content', 'main');
 });
 
 /*
@@ -41,6 +49,7 @@ Route::get('/', function()
  * -------------------------------------------------------------------------
  */
 Route::group(array('prefix' => 'api'), function() {
+
     Route::resource('teachers', 'API\V1\TeachersController');
     Route::group(array('prefix' => 'teachers'), function() {
     });
@@ -93,6 +102,8 @@ Route::group(array('prefix' => 'api'), function() {
     Route::group(array('prefix' => 'studentrecords'), function() {
     });
 
+    Route::resource('users', 'API\V1\UsersController');
+
     // Route::resource('schedule_details', 'API\V1\ScheduleDetailsController');
     // Route::resource('grades_details', 'API\V1\GradeDetailsController');
 });
@@ -102,11 +113,37 @@ Route::group(array('prefix' => 'api'), function() {
  * Application Routes
  * -------------------------------------------------------------------------------------
  */
-Route::resource('teachers', 'AppTeachersController');
+Route::get('login', 'LoginController@show');
+Route::post('login', 'LoginController@login');
+Route::get('logout', 'LoginController@logout');
+
+
+Route::group(array('prefix' => 'app', 'before' => 'auth'), function() {
+    Route::get('/', function() {
+        return View::make('layouts.application', array('content' => ''));
+    });
+    Route::resource('teachers', 'AppTeachersController');
+
+});
+
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function() {
+    Route::get('/', 'AppTeachersController@index');
+
+    Route::resource('teachers', 'AppTeachersController');
+    Route::resource('students', 'AppStudentsController');
+    Route::resource('careers', 'AppCareersController');
+
+});
 
 // Route::get('api', function(){
 //     $uri = 'https://github.com/api/v2/xml/user/show/nategood';
 //     $res = HttpfulReq::get($uri)->send();
 //     return "bien";
 // });
+
+Route::get('test', array('before' => 'api.type:json'), function() {
+    $sess_token = Session::token();
+    $form_token = Form::token();
+    return Response::make("Sess token: $sess_token <br>Form token: $form_token", 200);
+});
 

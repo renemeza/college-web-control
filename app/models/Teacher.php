@@ -3,7 +3,11 @@
 class Teacher extends Eloquent {
     protected $guarded = array();
 
-    public static $rules = array();
+    public static $rules = array(
+        'id' => 'required',
+        'first_name' => 'required',
+        'last_name' => 'required'
+    );
 
     public function teachSections()
     {

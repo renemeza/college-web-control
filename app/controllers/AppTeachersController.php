@@ -2,9 +2,16 @@
 
 class AppTeachersController extends \BaseController {
 
+	protected $layout = 'layouts.application';
+
 	public function __construct()
 	{
+		$this->meta_data = array(
+			'active' => 'teachers',
+			'main_link' => URL::to('admin').'/'.'teachers'
+		);
 
+		View::share('alerts', null);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -13,8 +20,12 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$data = self::requestApi('/api/v1/teachers');
-		return View::make('layouts.application')->nest('content', 'teachers.index', compact('data'));
+		$data = self::requestJSONApi('/api/teachers');
+		return View::make('admin.layout', $this->meta_data)
+			->nest('content', 'teachers.index',
+				array(
+					'data' => $data,
+					'main_link' => $this->meta_data['main_link']));
 	    // return View::make('teachers.index', compact('data'));
 	}
 
@@ -25,7 +36,9 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$data = self::requestOriginalApi("/api/teachers/create", "GET");
+		return View::make('admin.layout', $this->meta_data)
+			->with('content', $data);
 	}
 
 	/**
@@ -35,7 +48,14 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$teacher = self::requestJSONApi("/api/teachers", "POST", Input::all());
+		$alerts = array();
+		// if(!is_null($teacher)) {
+			$alerts['alert-type'] = "success";
+			$alerts['title'] = "Exito";
+			$alerts['message'] = "Registro agregado exitosamente";
+		// }
+		return Redirect::to("/admin/teachers")->with('alerts', $alerts);
 	}
 
 	/**
@@ -46,8 +66,8 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$data = self::requestApi("/api/v1/teachers/$id");
-		return View::make('layouts.application')->nest('content', 'teachers.show', compact('data'));
+		$data = self::requestJSONApi("/api/teachers/$id");
+		return View::make('admin.layout', $this->meta_data)->nest('content', 'teachers.show', compact('data'));
 	}
 
 	/**
@@ -58,7 +78,9 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = self::requestOriginalApi("/api/teachers/$id/edit", "GET");
+		return View::make('admin.layout', $this->meta_data)
+			->with(array('content' => $data));
 	}
 
 	/**
@@ -69,7 +91,8 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$data = self::requestJSONApi("/api/teachers/$id", 'PUT', Input::all());
+		return Redirect::to("/admin/teachers");
 	}
 
 	/**
@@ -80,7 +103,11 @@ class AppTeachersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// self::requestOriginalApi('/api/teachers', "DELETE");
+		// return Redirect::to('admin/teachers');
+		$teacher = Teacher::find($id);
+		$teacher->delete();
+		return Redirect::to('admin/teachers');
 	}
 
 }

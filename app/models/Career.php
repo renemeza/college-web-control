@@ -3,7 +3,14 @@
 class Career extends Eloquent {
 	protected $guarded = array();
 
-	public static $rules = array();
+    protected $fillable = array(
+        'id', 'name'
+    );
+
+	public static $rules = array(
+        'id' => 'required',
+        'name' => 'required'
+    );
 
     public function courses()
     {

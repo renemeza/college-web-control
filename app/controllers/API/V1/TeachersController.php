@@ -6,12 +6,13 @@ use View;
 use Response;
 use Teacher;
 use TeacherRepositoryInterface;
+use Input;
 
 class TeachersController extends BaseController {
 
     public function __construct(TeacherRepositoryInterface $teachers)
     {
-
+        $this->teachers = $teachers;
     }
     /**
      * Display a listing of the resource.
@@ -20,13 +21,7 @@ class TeachersController extends BaseController {
      */
     public function index()
     {
-        $teachers = Teacher::all();
-        return Response::json(
-            array(
-                'error' => false,
-                'data' => $teachers->toArray()
-            ),
-            200);
+        return $this->teachers->findAll();
     }
 
     /**
@@ -36,7 +31,8 @@ class TeachersController extends BaseController {
      */
     public function create()
     {
-        //
+        $teacher = $this->teachers->instance();
+        return View::make('teachers._form', compact('teacher'));
     }
 
     /**
@@ -46,7 +42,7 @@ class TeachersController extends BaseController {
      */
     public function store()
     {
-        //
+        return $this->teachers->store(Input::all());
     }
 
     /**
@@ -57,7 +53,7 @@ class TeachersController extends BaseController {
      */
     public function show($id)
     {
-        $teacher = Teacher::where('id', $id)->get();
+        $teacher = $this->teachers->findById($id);
 
         return Response::json(
             array(
@@ -74,7 +70,9 @@ class TeachersController extends BaseController {
      */
     public function edit($id)
     {
-        //
+        $teacher = $this->teachers->findById($id);
+        return View::make('teachers._form', array('teacher' => $teacher, 'exists' => true));
+        // return "Edit";
     }
 
     /**
@@ -85,7 +83,7 @@ class TeachersController extends BaseController {
      */
     public function update($id)
     {
-        //
+        return $this->teachers->update($id, Input::all());
     }
 
     /**
@@ -96,7 +94,10 @@ class TeachersController extends BaseController {
      */
     public function destroy($id)
     {
-        //
+        $this->teachers->destroy($id);
+        return Response::json(array(
+            'error' => false
+        ), 203);
     }
 
 }

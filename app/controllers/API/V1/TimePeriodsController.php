@@ -10,7 +10,7 @@ class TimePeriodsController extends BaseController {
 
 	public function __construct(TimePeriodRepositoryInterface $periods)
     {
-
+    	$this->periods = $periods;
     }
 	/**
 	 * Display a listing of the resource.
@@ -19,7 +19,7 @@ class TimePeriodsController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return $this->periods->findAll();
 	}
 
 	/**
