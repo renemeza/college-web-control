@@ -11,3 +11,5 @@ A web application to control basic operations of a College, like teachers, stude
 * Rene Meza
 * Joaquin Rivera
 * Mauro Rubi
+
+New things coming
